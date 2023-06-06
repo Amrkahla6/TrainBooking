@@ -42,7 +42,8 @@ class AdminController extends Controller
 
     public function logout( Request $request )
     {
-        if(Auth::guard('admin')->check()) // this means that the admin was logged in.
+        // this means that the admin was logged in.
+        if(Auth::guard('admin')->check())
         {
             Auth::guard('admin')->logout();
             return redirect()->route('admin.login');

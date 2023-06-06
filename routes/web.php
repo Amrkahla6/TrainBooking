@@ -28,3 +28,5 @@ Route::group(['middleware' => 'check.user'], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::post('/user/reservation/store',[ReservationController::class,'store'])->name('reservation.store');
 });
+
+

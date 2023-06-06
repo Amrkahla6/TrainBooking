@@ -7,10 +7,15 @@ namespace App\Repositories;
 use App\Models\Admin;
 use App\Models\User;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
-use Illuminate\Support\Facades\Auth;
 
 class AuthRepository implements AuthRepositoryInterface
 {
+
+    /**
+     * @param $emailOrPhone
+     * @param $password
+     * @return User|null
+     */
     public function userLogin($emailOrPhone, $password)
     {
         // TODO: Implement userLogin() method.
@@ -25,8 +30,13 @@ class AuthRepository implements AuthRepositoryInterface
         }
 
         return null;
-    }
+    }//end user login function
 
+    /**
+     * @param $username
+     * @param $password
+     * @return null
+     */
     public function adminLogin($username, $password)
     {
         // TODO: Implement adminLogin() method.
@@ -37,23 +47,17 @@ class AuthRepository implements AuthRepositoryInterface
         }
 
         return null;
-    }
+    }//end admin login function
 
 
-    public function credentials($request)
+    /**
+     * @param $request
+     * @return array
+     */
+    public function credentials($request) : array
     {
         // TODO: Implement credentials() method.
         return $request->only('email', 'password');
-    }
+    }//end credentials function
 
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    public function guard()
-    {
-        // TODO: Implement guard() method.
-        return Auth::guard();
-    }
-}
+}//end class

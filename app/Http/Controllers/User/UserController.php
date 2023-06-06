@@ -29,10 +29,10 @@ class UserController extends Controller
         $credentials = $this->authRepository->credentials($request);
 
         if ($user = $this->authRepository->userLogin($credentials['email'], $credentials['password'])) {
-            $this->authRepository->guard()->login($user, $request->filled('remember'));
+            Auth::guard()->login($user, $request->filled('remember'));
             return redirect()->route('home');
         }
-        return view('auth.login')->withErrors(['email' => trans('auth.failed')]);
-    }
+        return redirect()->route('user.login')->withErrors(['email' => trans('auth.failed')]);
+    }//end login function
 
 }

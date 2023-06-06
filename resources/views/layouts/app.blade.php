@@ -9,11 +9,19 @@
 
     <title> @yield('title')</title>
 
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+        crossorigin="anonymous"></script>
+
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    @yield('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" integrity="sha512-...." crossorigin="anonymous" />
+    @yield('styles')
+    <link rel="stylesheet" href="{{ asset('custom.css') }}">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -24,6 +32,21 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+
+                @if(auth()->guard('admin')->check())
+                    <div class="notifications">
+                        <a class="notification-icon" href="#">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge" id="notifyNumber"></span>
+                        </a>
+                        <div class="notification-list">
+                            <ul>
+                                <li class="reservationData"></li>
+                            </ul>
+                        </div>
+                    </div>
+               @endif
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -97,7 +120,20 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('.notification-icon').click(function() {
+                $('.notification-list').toggle();
+            });
 
+            // Hide the notification list when clicking outside of it
+            $(document).click(function(event) {
+                if (!$(event.target).closest('.notifications').length) {
+                    $('.notification-list').hide();
+                }
+            });
+        });
+    </script>
  @yield('scripts')
 </body>
 </html>

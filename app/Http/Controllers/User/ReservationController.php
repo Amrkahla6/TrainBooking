@@ -26,11 +26,12 @@ class ReservationController extends Controller
 
             return redirect()->route('home')
                 ->with('success','Reservation stored successfully');
+
         } catch (\Exception $e) {
             // Handle the exception
             return redirect()->route('home')->with('error', 'An error occurred: ' . $e->getMessage())->withInput();
         }
 
-    }
+    }//end store function
 
 }
